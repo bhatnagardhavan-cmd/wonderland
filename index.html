@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wonderland Water Park – Gwalior</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean:    #006994;
+    --aqua:     #00BCD4;
+    --teal:     #00897B;
+    --sky:      #29B6F6;
+    --sunny:    #FFD600;
+    --coral:    #FF6B35;
+    --seafoam:  #E0F7FA;
+    --sand:     #FFF8E1;
+    --white:    #FFFFFF;
+    --dark:     #01232E;
+    --darkblue: #013A4C;
+    --text:     #01232E;
+    --grad:     linear-gradient(135deg, #006994 0%, #00BCD4 55%, #29B6F6 100%);
+    --grad-warm:linear-gradient(135deg, #FF6B35 0%, #FFD600 100%);
+    --grad-ocean:linear-gradient(180deg, #013A4C 0%, #006994 100%);
+  }
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Nunito', sans-serif; background: var(--white); color: var(--text); overflow-x: hidden; }
+
+  /* ── NAV ─────────────────────────────────── */
+  nav {
+    position: fixed; top:0; left:0; right:0; z-index:100;
+    background: rgba(1,35,46,0.95);
+    backdrop-filter: blur(12px);
+    padding: 0 5%;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 70px;
+    border-bottom: 3px solid var(--aqua);
+  }
+  .logo-nav { font-family:'Fredoka One',cursive; font-size:1.6rem; background: var(--grad); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+  .nav-links { display:flex; gap:2rem; list-style:none; }
+  .nav-links a { color: #b2ebf2; text-decoration:none; font-weight:700; font-size:.88rem; letter-spacing:.06em; text-transform:uppercase; transition:color .2s; }
+  .nav-links a:hover { color: var(--sunny); }
+  .nav-btn { background: var(--grad-warm); color:#fff; padding:.5rem 1.4rem; border-radius:50px; font-family:'Fredoka One',cursive; font-size:1rem; text-decoration:none; box-shadow:0 4px 20px rgba(255,107,53,.4); transition:transform .2s, box-shadow .2s; }
+  .nav-btn:hover { transform:translateY(-2px); box-shadow:0 8px 30px rgba(255,107,53,.7); }
+  .hamburger { display:none; flex-direction:column; gap:5px; cursor:pointer; }
+  .hamburger span { width:25px; height:3px; background:var(--aqua); border-radius:2px; }
+
+  /* ── HERO ─────────────────────────────────── */
+  .hero {
+    min-height: 100vh;
+    position: relative;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+    padding-top: 70px;
+    background: var(--dark);
+  }
+  .hero-bg {
+    position: absolute; inset:0;
+    background:
+      radial-gradient(ellipse at 20% 40%, rgba(0,105,148,.7) 0%, transparent 55%),
+      radial-gradient(ellipse at 80% 20%, rgba(41,182,246,.35) 0%, transparent 50%),
+      radial-gradient(ellipse at 60% 80%, rgba(0,188,212,.2) 0%, transparent 50%),
+      linear-gradient(180deg, #01232E 0%, #013A4C 60%, #005F73 100%);
+  }
+  /* Sun glow */
+  .hero-sun {
+    position:absolute; top:8%; right:10%;
+    width:140px; height:140px;
+    border-radius:50%;
+    background: radial-gradient(circle, #FFD600 30%, rgba(255,214,0,.3) 70%, transparent 100%);
+    box-shadow: 0 0 60px 30px rgba(255,214,0,.25);
+    animation: sunpulse 4s ease-in-out infinite;
+  }
+  @keyframes sunpulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.08)} }
+
+  /* water waves bottom of hero */
+  .waves-hero { position:absolute; bottom:0; left:0; right:0; height:140px; }
+  .wave { position:absolute; bottom:0; left:0; width:200%; height:100%; }
+  .wave svg { width:100%; height:100%; }
+  .wave1 { animation: wave-move 8s linear infinite; }
+  .wave2 { animation: wave-move 14s linear infinite reverse; }
+  .wave3 { animation: wave-move 10s linear infinite; opacity:.5; }
+  @keyframes wave-move { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+  .hero-content { position:relative; z-index:2; text-align:center; padding:2rem; max-width:800px; }
+  .hero-eyebrow { color: var(--sunny); font-weight:800; letter-spacing:.15em; text-transform:uppercase; font-size:.85rem; margin-bottom:.75rem; }
+  .hero-title { font-family:'Fredoka One',cursive; font-size: clamp(3.5rem, 10vw, 7.5rem); line-height:1; background: linear-gradient(135deg,#fff 0%,#b2ebf2 40%,#29B6F6 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; margin-bottom:.5rem; filter: drop-shadow(0 0 40px rgba(41,182,246,.5)); }
+  .hero-sub { color:#b2ebf2; font-size:clamp(1rem,2.5vw,1.3rem); font-weight:600; margin-bottom:.6rem; }
+  .hero-sub span { color: var(--sunny); }
+  .hero-tagline { color: rgba(178,235,242,.65); font-size:.95rem; margin-bottom:2.5rem; }
+  .hero-ctas { display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; }
+  .btn-primary { background: var(--grad-warm); color:#fff; padding:.9rem 2.5rem; border-radius:50px; font-family:'Fredoka One',cursive; font-size:1.2rem; text-decoration:none; box-shadow:0 6px 30px rgba(255,107,53,.45); transition:transform .2s, box-shadow .2s; }
+  .btn-primary:hover { transform:translateY(-3px) scale(1.04); box-shadow:0 12px 40px rgba(255,107,53,.7); }
+  .btn-outline { border:2px solid var(--aqua); color:#b2ebf2; padding:.9rem 2.5rem; border-radius:50px; font-family:'Fredoka One',cursive; font-size:1.2rem; text-decoration:none; transition:all .2s; }
+  .btn-outline:hover { background:var(--aqua); color:var(--dark); }
+
+  /* floating bubbles */
+  .bubble { position:absolute; border-radius:50%; background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.3), rgba(41,182,246,.1)); border:1px solid rgba(41,182,246,.35); animation: bfloat 6s ease-in-out infinite; }
+  @keyframes bfloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-28px)} }
+  .b1{width:90px;height:90px;top:18%;left:6%;animation-delay:0s}
+  .b2{width:55px;height:55px;top:30%;right:14%;animation-delay:2s}
+  .b3{width:130px;height:130px;top:55%;left:3%;animation-delay:1s;opacity:.4}
+  .b4{width:45px;height:45px;top:65%;right:7%;animation-delay:3.5s}
+
+  /* ── MARQUEE ──────────────────────────────── */
+  .strip { background: linear-gradient(90deg, var(--ocean), var(--teal), var(--aqua), var(--teal), var(--ocean)); background-size:300% 100%; animation: gradshift 8s ease-in-out infinite; padding:.65rem 0; overflow:hidden; }
+  @keyframes gradshift { 0%,100%{background-position:0% 50%} 50%{background-position:100% 50%} }
+  .marquee { display:flex; gap:3rem; white-space:nowrap; animation:marquee 22s linear infinite; }
+  .marquee-item { color:#fff; font-family:'Fredoka One',cursive; font-size:1.05rem; display:flex; align-items:center; gap:.5rem; }
+  .marquee-item::before { content:'🌊'; }
+  @keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+  /* ── SECTIONS shared ─────────────────────────── */
+  section { padding:5rem 5%; }
+  .section-eyebrow { color:var(--ocean); font-weight:800; letter-spacing:.15em; text-transform:uppercase; font-size:.8rem; margin-bottom:.5rem; }
+  .section-title { font-family:'Fredoka One',cursive; font-size:clamp(2rem,5vw,3rem); color:var(--dark); margin-bottom:1rem; }
+  .section-title span { background: var(--grad); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+  .section-body { color:#4a7a8a; font-size:1rem; line-height:1.8; max-width:600px; }
+
+  /* ── STATS ────────────────────────────────── */
+  .stats { background: var(--grad-ocean); padding:3rem 5%; }
+  .stats-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:2rem; text-align:center; max-width:950px; margin:0 auto; }
+  .stat-num { font-family:'Fredoka One',cursive; font-size:3rem; color:var(--sunny); }
+  .stat-label { color:#b2ebf2; font-weight:700; font-size:.85rem; text-transform:uppercase; letter-spacing:.08em; }
+
+  /* ── ATTRACTIONS ─────────────────────────────── */
+  .attractions { background: var(--seafoam); }
+  .rides-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1.5rem; margin-top:3rem; }
+  .ride-card { background:#fff; border-radius:20px; overflow:hidden; box-shadow:0 4px 20px rgba(0,105,148,.1); transition:transform .3s, box-shadow .3s; position:relative; }
+  .ride-card:hover { transform:translateY(-8px); box-shadow:0 18px 45px rgba(0,105,148,.2); }
+  .ride-icon { height:155px; display:flex; align-items:center; justify-content:center; font-size:5rem; position:relative; overflow:hidden; }
+  .ride-card:nth-child(1) .ride-icon { background:linear-gradient(135deg,#006994,#29B6F6); }
+  .ride-card:nth-child(2) .ride-icon { background:linear-gradient(135deg,#00897B,#00BCD4); }
+  .ride-card:nth-child(3) .ride-icon { background:linear-gradient(135deg,#FF6B35,#FFD600); }
+  .ride-card:nth-child(4) .ride-icon { background:linear-gradient(135deg,#29B6F6,#006994); }
+  .ride-card:nth-child(5) .ride-icon { background:linear-gradient(135deg,#00BCD4,#00897B); }
+  .ride-card:nth-child(6) .ride-icon { background:linear-gradient(135deg,#FFD600,#FF6B35); }
+  .ride-card:nth-child(7) .ride-icon { background:linear-gradient(135deg,#006994,#00897B); }
+  .ride-card:nth-child(8) .ride-icon { background:linear-gradient(135deg,#29B6F6,#00BCD4); }
+  .ride-badge { position:absolute; top:12px; right:12px; background: var(--grad-warm); color:#fff; font-size:.7rem; font-weight:800; padding:.2rem .7rem; border-radius:50px; text-transform:uppercase; letter-spacing:.04em; }
+  .ride-info { padding:1.2rem 1.5rem 1.5rem; }
+  .ride-name { font-family:'Fredoka One',cursive; font-size:1.3rem; color:var(--dark); margin-bottom:.4rem; }
+  .ride-desc { color:#5a8a9a; font-size:.9rem; line-height:1.6; }
+  .ride-tags { display:flex; gap:.4rem; flex-wrap:wrap; margin-top:.8rem; }
+  .tag { background: #e0f7fa; color:var(--ocean); font-size:.75rem; font-weight:700; padding:.2rem .65rem; border-radius:50px; }
+
+  /* ── TICKETS ─────────────────────────────────── */
+  .tickets { background: var(--sand); }
+  .tickets-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:1.5rem; margin-top:3rem; max-width:900px; }
+  .ticket-card { border-radius:22px; padding:2rem; position:relative; overflow:hidden; }
+  .ticket-card.basic { background:#fff; border:2px solid #b2ebf2; }
+  .ticket-card.popular { background: linear-gradient(135deg,#006994,#00BCD4); color:#fff; transform:scale(1.04); box-shadow:0 20px 50px rgba(0,105,148,.35); }
+  .ticket-card.group { background: var(--dark); color:#fff; border:2px solid var(--aqua); }
+  .ticket-badge { position:absolute; top:16px; right:16px; background:rgba(255,255,255,.25); font-size:.7rem; font-weight:800; padding:.2rem .7rem; border-radius:50px; text-transform:uppercase; }
+  .ticket-card.basic .ticket-badge { background:#e0f7fa; color:var(--ocean); }
+  .ticket-name { font-family:'Fredoka One',cursive; font-size:1.4rem; margin-bottom:.3rem; }
+  .ticket-card.basic .ticket-name { color:var(--dark); }
+  .ticket-price { font-family:'Fredoka One',cursive; font-size:3rem; line-height:1; margin-bottom:.2rem; }
+  .ticket-card.basic .ticket-price { color:var(--ocean); }
+  .ticket-card.popular .ticket-price { color:#fff; }
+  .ticket-card.group .ticket-price { color:var(--sunny); }
+  .ticket-note { font-size:.85rem; opacity:.7; margin-bottom:1.5rem; }
+  .ticket-features { list-style:none; margin-bottom:1.8rem; }
+  .ticket-features li { padding:.35rem 0; font-size:.9rem; display:flex; align-items:center; gap:.6rem; }
+  .ticket-features li::before { content:'✓'; font-weight:900; }
+  .ticket-card.basic .ticket-features li::before { color:var(--teal); }
+  .ticket-card.basic .ticket-features li { color:#3a6a7a; }
+  .ticket-card.popular .ticket-features li::before { color:#ffe082; }
+  .ticket-card.group .ticket-features li::before { color:var(--aqua); }
+  .btn-ticket { display:block; text-align:center; padding:.8rem; border-radius:50px; font-family:'Fredoka One',cursive; font-size:1rem; text-decoration:none; transition:all .2s; }
+  .ticket-card.basic .btn-ticket { background:var(--grad); color:#fff; }
+  .ticket-card.popular .btn-ticket { background:rgba(255,255,255,.2); color:#fff; border:2px solid #fff; }
+  .ticket-card.popular .btn-ticket:hover { background:#fff; color:var(--ocean); }
+  .ticket-card.group .btn-ticket { background:var(--grad-warm); color:#fff; }
+
+  /* ── TIMING ─────────────────────────────────── */
+  .timing { background: var(--grad-ocean); color:#fff; }
+  .timing .section-title { color:#fff; }
+  .timing .section-eyebrow { color:var(--sunny); }
+  .timing-table { width:100%; max-width:720px; border-collapse:collapse; margin-top:2rem; }
+  .timing-table th { background:rgba(41,182,246,.2); color:var(--sunny); padding:.9rem 1.2rem; text-align:left; font-size:.82rem; text-transform:uppercase; letter-spacing:.08em; border-bottom:2px solid rgba(41,182,246,.3); }
+  .timing-table td { padding:.9rem 1.2rem; border-bottom:1px solid rgba(255,255,255,.07); font-size:.95rem; color:#b2ebf2; }
+  .timing-table tr:hover td { background:rgba(41,182,246,.08); }
+  .open-badge { background:rgba(0,230,118,.2); color:#00e676; padding:.15rem .7rem; border-radius:50px; font-size:.75rem; font-weight:700; }
+  .seasonal-badge { background:rgba(255,214,0,.15); color:#ffd600; padding:.15rem .7rem; border-radius:50px; font-size:.75rem; font-weight:700; }
+
+  /* ── FACILITIES ─────────────────────────────── */
+  .facilities { background:#fff; }
+  .facilities-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:1.5rem; margin-top:3rem; }
+  .fac-card { background:var(--seafoam); border-radius:18px; padding:1.6rem 1.4rem; text-align:center; border:1px solid rgba(0,188,212,.2); transition:transform .2s, box-shadow .2s; }
+  .fac-card:hover { transform:translateY(-5px); box-shadow:0 10px 30px rgba(0,105,148,.12); }
+  .fac-icon { font-size:2.4rem; margin-bottom:.8rem; }
+  .fac-name { font-family:'Fredoka One',cursive; font-size:1.1rem; color:var(--dark); margin-bottom:.3rem; }
+  .fac-desc { color:#4a7a8a; font-size:.85rem; line-height:1.5; }
+
+  /* ── GALLERY ─────────────────────────────── */
+  .gallery { background: var(--seafoam); }
+  .gallery-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:2.5rem; }
+  .gallery-item { border-radius:16px; overflow:hidden; position:relative; aspect-ratio:1; display:flex; align-items:center; justify-content:center; font-size:4rem; cursor:pointer; transition:transform .3s; }
+  .gallery-item:hover { transform:scale(1.03); }
+  .gallery-item:nth-child(1) { grid-column:span 2; aspect-ratio:2/1; }
+  .gallery-item:nth-child(4) { grid-column:span 2; aspect-ratio:2/1; }
+  .g1 { background:linear-gradient(135deg,#006994,#29B6F6); }
+  .g2 { background:linear-gradient(135deg,#00897B,#00BCD4); }
+  .g3 { background:linear-gradient(135deg,#FF6B35,#FFD600); }
+  .g4 { background:linear-gradient(135deg,#013A4C,#006994); }
+  .g5 { background:linear-gradient(135deg,#29B6F6,#00BCD4); }
+  .g6 { background:linear-gradient(135deg,#00BCD4,#00897B); }
+  .gallery-overlay { position:absolute; inset:0; background:rgba(1,35,46,.45); display:flex; align-items:center; justify-content:center; opacity:0; transition:opacity .3s; font-size:1.2rem; font-family:'Fredoka One',cursive; color:#fff; letter-spacing:.05em; }
+  .gallery-item:hover .gallery-overlay { opacity:1; }
+
+  /* ── EVENTS ─────────────────────────────── */
+  .events { background:#fff; }
+  .events-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:1.5rem; margin-top:3rem; }
+  .event-card { border-radius:20px; overflow:hidden; box-shadow:0 4px 20px rgba(0,105,148,.1); transition:transform .2s; }
+  .event-card:hover { transform:translateY(-6px); }
+  .event-banner { height:130px; display:flex; align-items:center; justify-content:center; font-size:3.5rem; }
+  .ev1 { background:linear-gradient(135deg,#006994,#00BCD4); }
+  .ev2 { background:linear-gradient(135deg,#FF6B35,#FFD600); }
+  .ev3 { background:linear-gradient(135deg,#00897B,#29B6F6); }
+  .event-body { padding:1.2rem 1.5rem 1.5rem; }
+  .event-date { color:var(--coral); font-weight:800; font-size:.8rem; text-transform:uppercase; letter-spacing:.1em; margin-bottom:.3rem; }
+  .event-name { font-family:'Fredoka One',cursive; font-size:1.2rem; color:var(--dark); margin-bottom:.4rem; }
+  .event-desc { color:#5a8a9a; font-size:.88rem; line-height:1.6; }
+
+  /* ── RULES ─────────────────────────────── */
+  .rules { background: var(--sand); }
+  .rules-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:1rem; margin-top:2.5rem; }
+  .rule-item { display:flex; align-items:flex-start; gap:1rem; padding:1.1rem; background:#fff; border-radius:14px; border-left:4px solid var(--aqua); box-shadow:0 2px 12px rgba(0,105,148,.06); }
+  .rule-icon { font-size:1.5rem; flex-shrink:0; }
+  .rule-text { color:#5a8a9a; font-size:.9rem; line-height:1.6; }
+  .rule-text strong { color:var(--dark); display:block; margin-bottom:.2rem; }
+
+  /* ── CONTACT ────────────────────────────── */
+  .contact { background: var(--seafoam); }
+  .contact-grid { display:grid; grid-template-columns:1fr 1fr; gap:3rem; align-items:start; margin-top:3rem; }
+  .contact-info { display:flex; flex-direction:column; gap:1.5rem; }
+  .info-block { display:flex; gap:1rem; align-items:flex-start; }
+  .info-icon { width:46px; height:46px; border-radius:12px; background:var(--grad); display:flex; align-items:center; justify-content:center; font-size:1.3rem; flex-shrink:0; }
+  .info-label { font-weight:800; font-size:.82rem; text-transform:uppercase; letter-spacing:.07em; color:var(--ocean); margin-bottom:.2rem; }
+  .info-val { color:#2a5a6a; font-size:.95rem; line-height:1.6; }
+  .map-box { border-radius:20px; height:320px; overflow:hidden; box-shadow:0 8px 30px rgba(0,105,148,.15); }
+  .map-box iframe { width:100%; height:100%; border:none; }
+
+  /* ── FAQ ─────────────────────────────── */
+  .faq { background:#fff; }
+  .faq-list { max-width:700px; margin-top:2.5rem; }
+  .faq-item { border-bottom:1px solid #b2ebf2; }
+  .faq-q { width:100%; background:none; border:none; text-align:left; padding:1.1rem 0; font-family:'Nunito',sans-serif; font-weight:700; font-size:1rem; color:var(--dark); cursor:pointer; display:flex; justify-content:space-between; align-items:center; }
+  .faq-q:hover { color:var(--ocean); }
+  .faq-q .arrow { font-size:1.1rem; transition:transform .3s; color:var(--aqua); }
+  .faq-q.open .arrow { transform:rotate(180deg); }
+  .faq-a { max-height:0; overflow:hidden; transition:max-height .35s ease, padding .3s; color:#4a7a8a; font-size:.95rem; line-height:1.8; }
+  .faq-a.open { max-height:200px; padding-bottom:1rem; }
+
+  /* ── NEWSLETTER ─────────────────────────── */
+  .newsletter { background: linear-gradient(135deg, #006994, #00BCD4, #29B6F6); text-align:center; padding:4.5rem 5%; position:relative; overflow:hidden; }
+  .newsletter::before { content:''; position:absolute; inset:0; background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); }
+  .newsletter h2 { font-family:'Fredoka One',cursive; font-size:clamp(1.8rem,4vw,2.8rem); color:#fff; margin-bottom:.5rem; position:relative; }
+  .newsletter p { color:rgba(255,255,255,.85); margin-bottom:2rem; font-size:1rem; position:relative; }
+  .nl-form { display:flex; gap:.7rem; justify-content:center; flex-wrap:wrap; max-width:500px; margin:0 auto; position:relative; }
+  .nl-form input { flex:1; min-width:220px; padding:.85rem 1.4rem; border-radius:50px; border:none; font-family:'Nunito',sans-serif; font-size:.95rem; outline:none; box-shadow:0 4px 15px rgba(0,0,0,.15); }
+  .nl-form button { background:var(--grad-warm); color:#fff; border:none; padding:.85rem 2rem; border-radius:50px; font-family:'Fredoka One',cursive; font-size:1rem; cursor:pointer; transition:transform .2s, box-shadow .2s; box-shadow:0 4px 20px rgba(255,107,53,.4); }
+  .nl-form button:hover { transform:scale(1.05); box-shadow:0 8px 30px rgba(255,107,53,.6); }
+
+  /* ── FOOTER ──────────────────────────────── */
+  footer { background: var(--dark); color:#7fc8d8; padding:3rem 5% 2rem; }
+  .footer-grid { display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:2rem; margin-bottom:2rem; }
+  .footer-brand .logo-nav { display:block; margin-bottom:.8rem; }
+  .footer-brand p { font-size:.88rem; line-height:1.7; opacity:.65; }
+  .footer-col h4 { font-family:'Fredoka One',cursive; color:#fff; font-size:1.1rem; margin-bottom:1rem; }
+  .footer-col ul { list-style:none; }
+  .footer-col ul li { margin-bottom:.5rem; }
+  .footer-col ul li a { color:#7fc8d8; text-decoration:none; font-size:.88rem; transition:color .2s; }
+  .footer-col ul li a:hover { color:var(--sunny); }
+  .social-links { display:flex; gap:.8rem; margin-top:1rem; }
+  .social-links a { width:38px; height:38px; border-radius:50%; background:rgba(41,182,246,.15); display:flex; align-items:center; justify-content:center; font-size:1rem; text-decoration:none; transition:background .2s; }
+  .social-links a:hover { background:var(--aqua); }
+  .footer-bottom { border-top:1px solid rgba(255,255,255,.07); padding-top:1.5rem; display:flex; justify-content:space-between; align-items:center; font-size:.82rem; opacity:.4; flex-wrap:wrap; gap:.5rem; }
+
+  /* ── FLOAT BTN ─────────────────────────── */
+  .float-book { position:fixed; bottom:2rem; right:2rem; z-index:99; background:var(--grad-warm); color:#fff; padding:.8rem 1.5rem; border-radius:50px; font-family:'Fredoka One',cursive; font-size:1rem; text-decoration:none; box-shadow:0 8px 30px rgba(255,107,53,.5); animation:pulse 2.5s ease-in-out infinite; }
+  @keyframes pulse { 0%,100%{box-shadow:0 8px 30px rgba(255,107,53,.5)} 50%{box-shadow:0 8px 55px rgba(255,107,53,.85)} }
+
+  /* ── RESPONSIVE ─────────────────────────── */
+  @media(max-width:768px) {
+    .nav-links { display:none; }
+    .hamburger { display:flex; }
+    .contact-grid { grid-template-columns:1fr; }
+    .footer-grid { grid-template-columns:1fr 1fr; }
+    .gallery-grid { grid-template-columns:1fr 1fr; }
+    .gallery-item:nth-child(1),.gallery-item:nth-child(4) { grid-column:span 1; aspect-ratio:1; }
+  }
+  @media(max-width:480px) {
+    .footer-grid { grid-template-columns:1fr; }
+    section { padding:3.5rem 5%; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <span class="logo-nav">Wönderland</span>
+  <ul class="nav-links">
+    <li><a href="#rides">Rides</a></li>
+    <li><a href="#tickets">Tickets</a></li>
+    <li><a href="#timing">Timings</a></li>
+    <li><a href="#events">Events</a></li>
+    <li><a href="#contact">Find Us</a></li>
+  </ul>
+  <a href="#tickets" class="nav-btn">Book Now 🎟️</a>
+  <div class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-sun"></div>
+  <div class="bubble b1"></div>
+  <div class="bubble b2"></div>
+  <div class="bubble b3"></div>
+  <div class="bubble b4"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">📍 Gwalior, Madhya Pradesh</p>
+    <h1 class="hero-title">Wönderland</h1>
+    <p class="hero-sub">Gwalior's Most <span>Thrilling</span> Water Park</p>
+    <p class="hero-tagline">20+ Rides · Wave Pool · Rain Dance · Kids Zone · Food Court</p>
+    <div class="hero-ctas">
+      <a href="#tickets" class="btn-primary">🎟️ Buy Tickets</a>
+      <a href="#rides" class="btn-outline">Explore Rides →</a>
+    </div>
+  </div>
+  <div class="waves-hero">
+    <div class="wave wave1">
+      <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+        <path d="M0,60 C150,100 350,0 600,60 C850,120 1050,20 1200,60 L1200,120 L0,120 Z" fill="rgba(0,188,212,0.35)"/>
+      </svg>
+    </div>
+    <div class="wave wave2">
+      <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+        <path d="M0,40 C200,80 400,10 600,50 C800,90 1000,20 1200,50 L1200,120 L0,120 Z" fill="rgba(41,182,246,0.25)"/>
+      </svg>
+    </div>
+    <div class="wave wave3">
+      <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+        <path d="M0,80 C100,40 300,100 600,70 C900,40 1100,90 1200,70 L1200,120 L0,120 Z" fill="rgba(0,137,123,0.2)"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="strip">
+  <div class="marquee">
+    <span class="marquee-item">Wave Pool</span>
+    <span class="marquee-item">Rain Dance</span>
+    <span class="marquee-item">Speed Slides</span>
+    <span class="marquee-item">Lazy River</span>
+    <span class="marquee-item">Kids Splash Zone</span>
+    <span class="marquee-item">Aqua Coaster</span>
+    <span class="marquee-item">Tube Slides</span>
+    <span class="marquee-item">Multi-Lane Slides</span>
+    <span class="marquee-item">Food Court</span>
+    <span class="marquee-item">Free Parking</span>
+    <span class="marquee-item">Wave Pool</span>
+    <span class="marquee-item">Rain Dance</span>
+    <span class="marquee-item">Speed Slides</span>
+    <span class="marquee-item">Lazy River</span>
+    <span class="marquee-item">Kids Splash Zone</span>
+    <span class="marquee-item">Aqua Coaster</span>
+    <span class="marquee-item">Tube Slides</span>
+    <span class="marquee-item">Multi-Lane Slides</span>
+    <span class="marquee-item">Food Court</span>
+    <span class="marquee-item">Free Parking</span>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stats-grid">
+    <div><div class="stat-num">20+</div><div class="stat-label">Thrilling Rides</div></div>
+    <div><div class="stat-num">5</div><div class="stat-label">Dedicated Zones</div></div>
+    <div><div class="stat-num">365</div><div class="stat-label">Days Open</div></div>
+    <div><div class="stat-num">50K+</div><div class="stat-label">Happy Visitors/Year</div></div>
+    <div><div class="stat-num">10 Ac</div><div class="stat-label">Of Pure Fun</div></div>
+  </div>
+</div>
+
+<!-- RIDES -->
+<section class="attractions" id="rides">
+  <p class="section-eyebrow">🎢 Attractions</p>
+  <h2 class="section-title">Rides for <span>Every Thrill</span></h2>
+  <p class="section-body">From heart-pounding speed slides to relaxing lazy rivers — we have something for every age and every mood.</p>
+  <div class="rides-grid">
+    <div class="ride-card">
+      <div class="ride-icon">🌊</div>
+      <div class="ride-badge">Fan Favourite</div>
+      <div class="ride-info">
+        <div class="ride-name">Giant Wave Pool</div>
+        <div class="ride-desc">Experience real ocean-like waves in our massive 5-foot-deep wave pool — the heartbeat of Wonderland.</div>
+        <div class="ride-tags"><span class="tag">All Ages</span><span class="tag">Non-stop Waves</span></div>
+      </div>
+    </div>
+    <div class="ride-card">
+      <div class="ride-icon">🌧️</div>
+      <div class="ride-badge">Party Zone</div>
+      <div class="ride-info">
+        <div class="ride-name">Rain Dance Floor</div>
+        <div class="ride-desc">Dance under artificial rain with pumping Bollywood beats. The most electric zone in the park!</div>
+        <div class="ride-tags"><span class="tag">Music</span><span class="tag">Crowd Favourite</span></div>
+      </div>
+    </div>
+    <div class="ride-card">
+      <div class="ride-icon">⚡</div>
+      <div class="ride-badge">Extreme</div>
+      <div class="ride-info">
+        <div class="ride-name">Tornado Speed Slide</div>
+        <div class="ride-desc">Plunge into a giant funnel at 60 km/h. The most thrilling slide in central India — not for the faint-hearted!</div>
+        <div class="ride-tags"><span class="tag">Adults</span><span class="tag">Height 4ft+</span></div>
+      </div>
+    </div>
+    <div class="ride-card">
+      <div class="ride-icon">🛟</div>
+      <div class="ride-info">
+        <div class="ride-name">Lazy River</div>
+        <div class="ride-desc">Float along a 300-metre winding river on rubber tubes. The perfect way to unwind between rides.</div>
+        <div class="ride-tags"><span class="tag">Relaxing</span><span class="tag">All Ages</span></div>
+      </div>
+    </div>
+    <div class="ride-card">
+      <div class="ride-icon">🚿</div>
+      <div class="ride-info">
+        <div class="ride-name">Multi-Lane Splash Slides</div>
+        <div class="ride-desc">Race your friends down 4 parallel slides. First to the splash wins bragging rights!</div>
+        <div class="ride-tags"><span class="tag">Competitive</span><span class="tag">Family</span></div>
+      </div>
+    </div>
+    <div class="ride-card">
+      <div class="ride-icon">🐢</div>
+      <div class="ride-badge">Kids Zone</div>
+      <div class="ride-info">
+        <div class="ride-name">Junior Splash World</div>
+        <div class="ride-desc">A dedicated shallow-water zone for toddlers and young children with mini slides, fountains and sprayers.</div>
+        <div class="ride-tags"><span class="tag">Toddlers</span><span class="tag">Under 5ft</span></div>
+      </div>
+    </div>
+    <div class="ride-card">
+      <div class="ride-icon">🎪</div>
+      <div class="ride-info">
+        <div class="ride-name">Aqua Coaster</div>
+        <div class="ride-desc">The region's only uphill water coaster. Linear jets propel your raft uphill before a breathtaking plunge.</div>
+        <div class="ride-tags"><span class="tag">Unique</span><span class="tag">Family</span></div>
+      </div>
+    </div>
+    <div class="ride-card">
+      <div class="ride-icon">🎠</div>
+      <div class="ride-info">
+        <div class="ride-name">Dry Amusement Zone</div>
+        <div class="ride-desc">Break dance, bumper cars, Ferris wheel, carousel and more for those who want fun beyond the water.</div>
+        <div class="ride-tags"><span class="tag">Dry Rides</span><span class="tag">All Ages</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKETS -->
+<section class="tickets" id="tickets">
+  <p class="section-eyebrow">🎟️ Entry Tickets</p>
+  <h2 class="section-title">Pick Your <span>Pass</span></h2>
+  <p class="section-body">Children below 3 feet enter FREE. All passes include access to changing rooms, locker facility, and one complimentary life jacket.</p>
+  <div class="tickets-grid">
+    <div class="ticket-card basic">
+      <div class="ticket-badge">Water Park</div>
+      <div class="ticket-name">Water Park Entry</div>
+      <div class="ticket-price">₹599</div>
+      <div class="ticket-note">Per person · Weekdays</div>
+      <ul class="ticket-features">
+        <li>All water rides access</li>
+        <li>Wave pool &amp; rain dance</li>
+        <li>Changing room included</li>
+        <li>Locker (deposit refundable)</li>
+      </ul>
+      <a href="#" class="btn-ticket">Book Now</a>
+    </div>
+    <div class="ticket-card popular">
+      <div class="ticket-badge">⭐ Most Popular</div>
+      <div class="ticket-name">Combo Pass</div>
+      <div class="ticket-price">₹899</div>
+      <div class="ticket-note">Per person · All days</div>
+      <ul class="ticket-features">
+        <li>Water park + dry rides</li>
+        <li>Wave pool &amp; rain dance</li>
+        <li>Amusement zone access</li>
+        <li>Free locker for the day</li>
+        <li>10% off at food court</li>
+      </ul>
+      <a href="#" class="btn-ticket">Book Now</a>
+    </div>
+    <div class="ticket-card group">
+      <div class="ticket-badge">Groups 10+</div>
+      <div class="ticket-name">Group Package</div>
+      <div class="ticket-price">₹499</div>
+      <div class="ticket-note">Per person · Min 10 people</div>
+      <ul class="ticket-features">
+        <li>All water rides access</li>
+        <li>Dedicated entry lane</li>
+        <li>Group photo session</li>
+        <li>Special canteen voucher</li>
+        <li>School &amp; corporate rates</li>
+      </ul>
+      <a href="#" class="btn-ticket">Enquire Now</a>
+    </div>
+  </div>
+  <p style="margin-top:1.5rem;font-size:.85rem;color:#7a9aaa;">* Weekend prices may be ₹100–₹150 higher. Children below 3 feet enter free. Prices are indicative — please confirm at the gate.</p>
+</section>
+
+<!-- TIMING -->
+<section class="timing" id="timing">
+  <p class="section-eyebrow">⏰ Plan Your Visit</p>
+  <h2 class="section-title">Timings &amp; <span style="color:var(--sunny);-webkit-text-fill-color:var(--sunny)">Schedule</span></h2>
+  <table class="timing-table">
+    <thead>
+      <tr><th>Day</th><th>Water Park</th><th>Dry Park / Rides</th><th>Status</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Monday – Friday</td><td>10:00 AM – 7:00 PM</td><td>10:00 AM – 9:00 PM</td><td><span class="open-badge">Open</span></td></tr>
+      <tr><td>Saturday</td><td>9:30 AM – 8:00 PM</td><td>9:30 AM – 10:00 PM</td><td><span class="open-badge">Open</span></td></tr>
+      <tr><td>Sunday</td><td>9:30 AM – 8:00 PM</td><td>9:30 AM – 10:00 PM</td><td><span class="open-badge">Open</span></td></tr>
+      <tr><td>Public Holidays</td><td>9:00 AM – 8:00 PM</td><td>9:00 AM – 10:00 PM</td><td><span class="open-badge">Open</span></td></tr>
+      <tr><td>Dec – Jan (Winter)</td><td>Closed</td><td>10:00 AM – 8:00 PM</td><td><span class="seasonal-badge">Seasonal</span></td></tr>
+    </tbody>
+  </table>
+  <p style="color:#7fc8d8;font-size:.85rem;margin-top:1rem;">⚠️ Water park closes 30 minutes before park closing time. Last entry 1 hour before close.</p>
+</section>
+
+<!-- FACILITIES -->
+<section class="facilities" id="facilities">
+  <p class="section-eyebrow">🏖️ Facilities</p>
+  <h2 class="section-title">Everything You <span>Need</span></h2>
+  <p class="section-body">We've thought of everything so you can focus on the fun.</p>
+  <div class="facilities-grid">
+    <div class="fac-card"><div class="fac-icon">🍕</div><div class="fac-name">Food Court</div><div class="fac-desc">Chaat, burgers, ice cream, fresh juices &amp; more at reasonable prices.</div></div>
+    <div class="fac-card"><div class="fac-icon">🔒</div><div class="fac-name">Lockers</div><div class="fac-desc">Secure coin-operated lockers for your valuables and belongings.</div></div>
+    <div class="fac-card"><div class="fac-icon">👗</div><div class="fac-name">Changing Rooms</div><div class="fac-desc">Separate, clean changing rooms for men and women with showers.</div></div>
+    <div class="fac-card"><div class="fac-icon">🚑</div><div class="fac-name">First Aid</div><div class="fac-desc">On-site medical station with trained first-responders &amp; AED.</div></div>
+    <div class="fac-card"><div class="fac-icon">🦺</div><div class="fac-name">Lifeguards</div><div class="fac-desc">Certified lifeguards stationed at every major ride and pool.</div></div>
+    <div class="fac-card"><div class="fac-icon">🅿️</div><div class="fac-name">Free Parking</div><div class="fac-desc">Spacious, secured parking for 500+ vehicles. No extra charge.</div></div>
+    <div class="fac-card"><div class="fac-icon">📸</div><div class="fac-name">Photo Zone</div><div class="fac-desc">Dedicated Insta-worthy photo spots &amp; professional photographer on weekends.</div></div>
+    <div class="fac-card"><div class="fac-icon">🩱</div><div class="fac-name">Swimwear Shop</div><div class="fac-desc">Forgot your swimsuit? Pick one up right at the entrance gate.</div></div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="gallery" id="gallery">
+  <p class="section-eyebrow">📸 Gallery</p>
+  <h2 class="section-title">Inside the <span>Wonderland</span></h2>
+  <div class="gallery-grid">
+    <div class="gallery-item g1"><span>🌊</span><div class="gallery-overlay">Wave Pool</div></div>
+    <div class="gallery-item g2"><span>🎡</span><div class="gallery-overlay">Amusement Zone</div></div>
+    <div class="gallery-item g3"><span>⚡</span><div class="gallery-overlay">Speed Slides</div></div>
+    <div class="gallery-item g4"><span>🌧️</span><div class="gallery-overlay">Rain Dance</div></div>
+    <div class="gallery-item g5"><span>🛟</span><div class="gallery-overlay">Lazy River</div></div>
+    <div class="gallery-item g6"><span>🐢</span><div class="gallery-overlay">Kids Zone</div></div>
+  </div>
+  <p style="margin-top:1.5rem;font-size:.85rem;color:#4a7a8a;">Follow us on Instagram <strong style="color:var(--ocean)">@wonderlandwaterpark_gwalior</strong> for live updates &amp; visitor stories!</p>
+</section>
+
+<!-- EVENTS -->
+<section class="events" id="events">
+  <p class="section-eyebrow">🎉 Events &amp; Celebrations</p>
+  <h2 class="section-title">More Than Just a <span>Water Park</span></h2>
+  <div class="events-grid">
+    <div class="event-card">
+      <div class="event-banner ev1"><span>🎓</span></div>
+      <div class="event-body">
+        <div class="event-date">March – May · Every Year</div>
+        <div class="event-name">School Picnic Season</div>
+        <div class="event-desc">Special discounted group rates, organised activities, and dedicated staff for school groups. Book early — slots fill fast!</div>
+      </div>
+    </div>
+    <div class="event-card">
+      <div class="event-banner ev2"><span>☀️</span></div>
+      <div class="event-body">
+        <div class="event-date">May – June · Peak Summer</div>
+        <div class="event-name">Summer Carnival</div>
+        <div class="event-desc">Extended hours, celebrity performances, DJ nights, and exclusive summer-only rides. The most electric time of year!</div>
+      </div>
+    </div>
+    <div class="event-card">
+      <div class="event-banner ev3"><span>🎆</span></div>
+      <div class="event-body">
+        <div class="event-date">31 December</div>
+        <div class="event-name">New Year's Splash Bash</div>
+        <div class="event-desc">Ring in the New Year with a spectacular DJ night, fireworks, rain dance party, and a countdown to midnight!</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RULES -->
+<section class="rules" id="rules">
+  <p class="section-eyebrow">📋 Park Guidelines</p>
+  <h2 class="section-title">Safety <span>Rules</span></h2>
+  <div class="rules-grid">
+    <div class="rule-item"><div class="rule-icon">👙</div><div class="rule-text"><strong>Proper Swimwear Required</strong>Shorts/swimsuits mandatory. Cotton clothes not allowed on slides.</div></div>
+    <div class="rule-item"><div class="rule-icon">📏</div><div class="rule-text"><strong>Height Restrictions</strong>Some rides require a minimum height of 4ft. Check signage at each ride.</div></div>
+    <div class="rule-item"><div class="rule-icon">🍔</div><div class="rule-text"><strong>No Outside Food</strong>Outside food &amp; beverages are not permitted inside the park.</div></div>
+    <div class="rule-item"><div class="rule-icon">📸</div><div class="rule-text"><strong>No Cameras on Slides</strong>Personal phones/cameras not allowed on water rides for safety.</div></div>
+    <div class="rule-item"><div class="rule-icon">🚭</div><div class="rule-text"><strong>No Smoking / Alcohol</strong>Strictly prohibited throughout the park premises.</div></div>
+    <div class="rule-item"><div class="rule-icon">🤽</div><div class="rule-text"><strong>Non-Swimmers</strong>Must use a life jacket (provided free at the gate).</div></div>
+    <div class="rule-item"><div class="rule-icon">👶</div><div class="rule-text"><strong>Children Under 8</strong>Must be accompanied by an adult at all times in the water park.</div></div>
+    <div class="rule-item"><div class="rule-icon">💊</div><div class="rule-text"><strong>Health Conditions</strong>Guests with heart conditions or pregnancy advised to avoid thrill rides.</div></div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <p class="section-eyebrow">📍 Visit Us</p>
+  <h2 class="section-title">Find <span>Wonderland</span></h2>
+  <div class="contact-grid">
+    <div class="contact-info">
+      <div class="info-block">
+        <div class="info-icon">📍</div>
+        <div><div class="info-label">Address</div><div class="info-val">Wonderland Water Park, Gwalior,<br>Madhya Pradesh – 474001, India</div></div>
+      </div>
+      <div class="info-block">
+        <div class="info-icon">📞</div>
+        <div><div class="info-label">Phone</div><div class="info-val">+91 XXXXX XXXXX<br>+91 XXXXX XXXXX</div></div>
+      </div>
+      <div class="info-block">
+        <div class="info-icon">📧</div>
+        <div><div class="info-label">Email</div><div class="info-val">info@wonderlandgwalior.com</div></div>
+      </div>
+      <div class="info-block">
+        <div class="info-icon">📱</div>
+        <div><div class="info-label">Instagram</div><div class="info-val">@wonderlandwaterpark_gwalior</div></div>
+      </div>
+      <div class="info-block">
+        <div class="info-icon">⏰</div>
+        <div><div class="info-label">Today's Hours</div><div class="info-val">Water Park: 10:00 AM – 7:00 PM<br>Dry Rides: 10:00 AM – 9:00 PM</div></div>
+      </div>
+    </div>
+    <div class="map-box">
+      <iframe src="https://maps.google.com/maps?q=Gwalior+Madhya+Pradesh+India&output=embed" allowfullscreen loading="lazy"></iframe>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq" id="faq">
+  <p class="section-eyebrow">❓ FAQ</p>
+  <h2 class="section-title">Common <span>Questions</span></h2>
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">Is outside food allowed? <span class="arrow">▾</span></button>
+      <div class="faq-a">No outside food or beverages are allowed inside the park. We have a well-stocked food court with a wide variety of snacks, meals, and refreshments at reasonable prices.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">Do children get free entry? <span class="arrow">▾</span></button>
+      <div class="faq-a">Yes! Children under 3 feet in height enter absolutely free. For taller children, standard entry fees apply. Please bring ID proof for verification if needed.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">Is the park open in winter? <span class="arrow">▾</span></button>
+      <div class="faq-a">The Water Park section is closed during the winter months (December–January). However, the Dry Amusement Zone remains open all year round from 10:00 AM to 8:00 PM.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">Can I book tickets online? <span class="arrow">▾</span></button>
+      <div class="faq-a">Yes, you can book tickets online through our website. Online booking guarantees your entry and may include early-bird discounts. Walk-in tickets are also available at the gate subject to capacity.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">Are swimsuits mandatory? <span class="arrow">▾</span></button>
+      <div class="faq-a">Yes, proper swimwear is mandatory for all water rides. Cotton clothes and jeans are not permitted. We have a swimwear shop at the entrance if you need one.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">Are group discounts available? <span class="arrow">▾</span></button>
+      <div class="faq-a">Yes! Groups of 10 or more receive special discounted pricing. We offer curated packages for school picnics, corporate outings, and birthday parties. Contact us to discuss custom packages.</div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<div class="newsletter">
+  <h2>Stay in the Loop 🌊</h2>
+  <p>Get early access to event tickets, seasonal offers, and park news.</p>
+  <div class="nl-form">
+    <input type="email" placeholder="Your email address">
+    <button type="button">Subscribe</button>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <span class="logo-nav">Wönderland</span>
+      <p>Gwalior's most loved water park — where every splash tells a story. Open 365 days a year for your family's best memories.</p>
+      <div class="social-links">
+        <a href="https://www.instagram.com/wonderlandwaterpark_gwalior/" target="_blank" rel="noopener" title="Instagram">📸</a>
+        <a href="#" title="Facebook">📘</a>
+        <a href="#" title="YouTube">▶️</a>
+        <a href="#" title="WhatsApp">💬</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Explore</h4>
+      <ul>
+        <li><a href="#rides">Water Rides</a></li>
+        <li><a href="#rides">Dry Park</a></li>
+        <li><a href="#rides">Kids Zone</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#events">Events</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Plan Visit</h4>
+      <ul>
+        <li><a href="#tickets">Buy Tickets</a></li>
+        <li><a href="#timing">Timings</a></li>
+        <li><a href="#facilities">Facilities</a></li>
+        <li><a href="#rules">Park Rules</a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="#">Gwalior, M.P.</a></li>
+        <li><a href="#">+91 XXXXX XXXXX</a></li>
+        <li><a href="#">info@wonderlandgwalior.com</a></li>
+        <li><a href="#">Group Bookings</a></li>
+        <li><a href="#">Corporate Packages</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Wonderland Water Park, Gwalior. All rights reserved.</span>
+    <span>Privacy Policy · Terms &amp; Conditions</span>
+  </div>
+</footer>
+
+<!-- Floating CTA -->
+<a href="#tickets" class="float-book">🎟️ Book Tickets</a>
+
+<script>
+  function toggleMenu() {
+    const links = document.querySelector('.nav-links');
+    if(links.style.display === 'flex') {
+      links.style.display = 'none';
+    } else {
+      links.style.cssText = 'display:flex;flex-direction:column;position:absolute;top:70px;left:0;right:0;background:rgba(1,35,46,.97);padding:1rem 5%;gap:1.2rem;';
+    }
+  }
+  function toggleFaq(btn) {
+    const a = btn.nextElementSibling;
+    const open = a.classList.contains('open');
+    document.querySelectorAll('.faq-a').forEach(x => x.classList.remove('open'));
+    document.querySelectorAll('.faq-q').forEach(x => x.classList.remove('open'));
+    if(!open) { a.classList.add('open'); btn.classList.add('open'); }
+  }
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if(e.isIntersecting) { e.target.style.opacity='1'; e.target.style.transform='translateY(0)'; }
+    });
+  }, {threshold:0.1});
+  document.querySelectorAll('.ride-card,.ticket-card,.fac-card,.event-card,.rule-item').forEach(el => {
+    el.style.cssText += 'opacity:0;transform:translateY(28px);transition:opacity .5s ease,transform .5s ease;';
+    obs.observe(el);
+  });
+</script>
+</body>
+</html>
